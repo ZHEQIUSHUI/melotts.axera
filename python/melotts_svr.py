@@ -1,3 +1,4 @@
+import argparse
 import io
 import json
 import os
@@ -152,8 +153,11 @@ class TTSServerHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Whisper Server")
+    parser.add_argument("--port", type=int, default=8000, help="Port to run the server on")
+    args = parser.parse_args()
     host = "0.0.0.0"
-    port = 8001
+    port = args.port
     server = HTTPServer((host, port), TTSServerHandler)
     print(f"TTS Server started at http://{host}:{port}")
     server.serve_forever()
